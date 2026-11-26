@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { SITE } from '@/data/site';
+import { SITE, HOURS_TEXT } from '@/data/site';
 
 export const metadata: Metadata = {
   title: "Liên hệ & Showroom Nội thất Quận 2 | Linh's Furniture",
@@ -50,6 +50,43 @@ const jsonLd = {
   ],
 };
 
+const transport = [
+  {
+    icon: '🛵',
+    label: 'Xe máy',
+    desc: 'Có bãi đậu xe trong hẻm, miễn phí.',
+  },
+  {
+    icon: '🚗',
+    label: 'Ô tô',
+    desc: 'Đỗ xe dọc Xuân Thủy hoặc bãi xe gần showroom.',
+  },
+  {
+    icon: '🚌',
+    label: 'Xe buýt',
+    desc: 'Tuyến 150, 02, 19 – dừng Xuân Thủy.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Có cần đặt lịch trước khi ghé showroom không?',
+    a: 'Không cần – bạn có thể ghé bất kỳ lúc nào trong giờ mở cửa. Tuy nhiên nếu muốn tư vấn riêng về đặt làm theo kích thước, đặt lịch trước giúp chúng tôi chuẩn bị tốt hơn.',
+  },
+  {
+    q: 'Showroom có sản phẩm mẫu không hay chỉ nhận đặt?',
+    a: 'Showroom trưng bày hơn 50 món có sẵn, bạn có thể mua và mang về ngay. Ngoài ra chúng tôi nhận đặt làm theo kích thước và màu gỗ theo yêu cầu.',
+  },
+  {
+    q: 'Có giao hàng và lắp đặt tại nhà không?',
+    a: 'Có – miễn phí giao hàng và lắp đặt trong nội khu Quận 2 và Thủ Đức. Các quận khác trong TP.HCM có phí vận chuyển tùy khoảng cách.',
+  },
+  {
+    q: 'Thời gian làm hàng đặt mất bao lâu?',
+    a: 'Thông thường 3–5 tuần tuỳ độ phức tạp và loại gỗ. Chúng tôi sẽ xác nhận thời gian cụ thể khi nhận đơn.',
+  },
+];
+
 export default function LienHePage() {
   return (
     <>
@@ -57,7 +94,29 @@ export default function LienHePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
+      {/* Topbar nhanh */}
+      <div className="lienhe-topbar">
+        <div className="wrap lienhe-topbar-in">
+          <span className="lienhe-topbar-item">
+            <span>📍</span>
+            <strong>67 Xuân Thủy, Thảo Điền, Quận 2</strong>
+          </span>
+          <span className="lienhe-topbar-item">
+            <span>🕐</span>
+            <span>{HOURS_TEXT}</span>
+          </span>
+          <span className="lienhe-topbar-item">
+            <span>📞</span>
+            <a href={`tel:${SITE.phone}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <strong>{SITE.phoneDisplay}</strong>
+            </a>
+          </span>
+        </div>
+      </div>
+
       <div className="wrap section lienhe-wrap">
+        {/* Grid chính */}
         <div className="lienhe-grid">
 
           {/* Cột trái – thông tin */}
@@ -120,6 +179,19 @@ export default function LienHePage() {
                 Nhắn Zalo
               </a>
             </div>
+
+            {/* Đến bằng cách nào? */}
+            <div style={{ marginTop: 40 }}>
+              <p className="kicker" style={{ marginBottom: 4 }}>Đến bằng cách nào?</p>
+              <div className="lienhe-transport">
+                {transport.map(({ icon, label, desc }) => (
+                  <div key={label} className="lienhe-transport-item">
+                    <h3>{icon} {label}</h3>
+                    <p>{desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Cột phải – bản đồ */}
@@ -137,34 +209,43 @@ export default function LienHePage() {
           </div>
         </div>
 
-        {/* FAQ nhanh */}
+        {/* FAQ */}
         <div className="lienhe-faq">
           <h2 className="h2 lienhe-faq-title">Câu hỏi thường gặp</h2>
           <div className="lienhe-faq-grid">
-            {[
-              {
-                q: 'Có cần đặt lịch trước khi ghé showroom không?',
-                a: 'Không cần – bạn có thể ghé bất kỳ lúc nào trong giờ mở cửa. Tuy nhiên nếu muốn tư vấn riêng về đặt làm theo kích thước, đặt lịch trước giúp chúng tôi chuẩn bị tốt hơn.',
-              },
-              {
-                q: 'Showroom có sản phẩm mẫu không hay chỉ nhận đặt?',
-                a: 'Showroom trưng bày hơn 50 món có sẵn, bạn có thể mua và mang về ngay. Ngoài ra chúng tôi nhận đặt làm theo kích thước và màu gỗ theo yêu cầu.',
-              },
-              {
-                q: 'Có giao hàng và lắp đặt tại nhà không?',
-                a: 'Có – miễn phí giao hàng và lắp đặt trong nội khu Quận 2 và Thủ Đức. Các quận khác trong TP.HCM có phí vận chuyển tùy khoảng cách.',
-              },
-              {
-                q: 'Thời gian làm hàng đặt mất bao lâu?',
-                a: 'Thông thường 3–5 tuần tuỳ độ phức tạp và loại gỗ. Chúng tôi sẽ xác nhận thời gian cụ thể khi nhận đơn.',
-              },
-            ].map(({ q, a }) => (
+            {faqs.map(({ q, a }) => (
               <div key={q} className="lienhe-faq-item">
                 <h3 className="lienhe-faq-q">{q}</h3>
                 <p className="lienhe-faq-a">{a}</p>
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Section đặt lịch – full width, ngoài .wrap */}
+      <div className="lienhe-booking-band">
+        <p className="kicker light">Tư vấn trực tiếp</p>
+        <h2>Muốn tư vấn trực tiếp?</h2>
+        <p>
+          Đặt lịch trước để chúng tôi chuẩn bị tốt hơn – xem sản phẩm thực tế,
+          hỏi về đặt làm theo kích thước.
+        </p>
+        <div className="lienhe-booking-actions">
+          <a
+            href={SITE.zalo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-light btn-square"
+          >
+            Đặt lịch qua Zalo
+          </a>
+          <a
+            href={`tel:${SITE.phone}`}
+            className="btn btn-outline-light btn-square"
+          >
+            {SITE.phoneDisplay}
+          </a>
         </div>
       </div>
     </>
